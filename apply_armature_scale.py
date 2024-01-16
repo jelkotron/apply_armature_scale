@@ -36,7 +36,7 @@ def apply_scale(object):
 def apply_fcurve_scale(armature):
     if armature.type == 'ARMATURE':
         action = armature.animation_data.action
-        scale = armature.scale.copy()
+        scale = armature.matrix_world.decompose()[2] 
         location_curves = []
         apply_scale(armature)
         
@@ -51,7 +51,7 @@ def apply_fcurve_scale(armature):
                 inverse_scale_factor = 1 / scale[i % len(scale)]
                 point.co[1] /= inverse_scale_factor
     else:
-        print("Error: Only Armature objects supported yet.")
+        print("Error: Only Armature objects supported.")
 
 def menu_func(self, context):
     self.layout.operator(AnimatedScaleApply.bl_idname)
